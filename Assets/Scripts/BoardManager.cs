@@ -4,26 +4,10 @@ using System.Collections.Generic;       //Allows us to use Lists.
 
 public class BoardManager : MonoBehaviour
 {
-	// Using Serializable allows us to embed a class with sub properties in the inspector.
-	[Serializable]
-	public class Count
-	{
-		public int minimum;             //Minimum value for our Count class.
-		public int maximum;             //Maximum value for our Count class.
-
-
-		//Assignment constructor.
-		public Count (int min, int max)
-		{
-			minimum = min;
-			maximum = max;
-		}
-	}
-
+	public GameObject[,] tiles;
 
 	public int columns = 10;                                         //Number of columns in our game board.
 	public int rows = 10;                                            //Number of rows in our game board.
-	public GameObject[] floorTiles;                                 //Array of floor prefabs.
 
 	private Transform boardHolder;                                  //A variable to store a reference to the transform of our Board object.
 
@@ -32,6 +16,7 @@ public class BoardManager : MonoBehaviour
 	{
 		//Instantiate Board and set boardHolder to its transform.
 		boardHolder = new GameObject ("Board").transform;
+		tiles = new GameObject[columns, rows];
 
 		for (int x = 0; x < columns; x++) {
 			//Loop along y axis, starting from -1 to place floor or outerwall tiles.
@@ -44,6 +29,8 @@ public class BoardManager : MonoBehaviour
 				Sprite[] sprites = Resources.LoadAll<Sprite> ("Sprites/Terrain/terrain_1");
 
 				goInstance.GetComponent<SpriteRenderer> ().sprite = sprites [47];
+
+				tiles [x, y] = goInstance;
 
 				//Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
 				goInstance.transform.SetParent (boardHolder);
