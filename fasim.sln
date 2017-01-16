@@ -1,0 +1,23 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{ED73A816-B0E1-5B5E-3EAA-5BDB0C28E53A}") = "fasim", "Assembly-CSharp.csproj", "{F4E78430-0810-6C16-D782-4B10B3923403}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F4E78430-0810-6C16-D782-4B10B3923403}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4E78430-0810-6C16-D782-4B10B3923403}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4E78430-0810-6C16-D782-4B10B3923403}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4E78430-0810-6C16-D782-4B10B3923403}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
