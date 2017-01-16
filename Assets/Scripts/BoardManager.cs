@@ -62,11 +62,14 @@ public class BoardManager : MonoBehaviour
 				//Choose a random tile from our array of floor tile prefabs and prepare to instantiate it.
 //				GameObject toInstantiate = floorTiles[Random.Range (0,floorTiles.Length)];
 				GameObject toInstantiate = Resources.Load<GameObject>("Prefabs/TerrainTile");
-				Debug.Log (toInstantiate);
 
 				//Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
 				GameObject instance =
 					Instantiate (toInstantiate, new Vector3 (x, y, 0f), Quaternion.identity) as GameObject;
+
+				Sprite[] sprites = Resources.LoadAll<Sprite> ("Sprites/Terrain/terrain_1");
+
+				instance.GetComponent<SpriteRenderer> ().sprite = sprites [47];
 
 				//Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
 				instance.transform.SetParent (boardHolder);
