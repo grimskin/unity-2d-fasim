@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: 6dd44c7352cf64677856a59aaa561f10
+labels:
+- Player
 timeCreated: 1484681017
 licenseType: Free
 NativeFormatImporter:
