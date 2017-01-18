@@ -19,8 +19,11 @@ public class UnitController {
 
 	private Vector3 movingTo;
 
-	private float movingSpeed;
+	private float movingTime;
 
+	private float inverseMoveTime;
+
+	private UnitManager unitManager;
 
 	public void Start () {
 		// position our guy at the initial location
@@ -30,7 +33,10 @@ public class UnitController {
 			name = NameGenerator.fullName();
 		}
 
-		Debug.Log (name + " came to this world");
+		movingTime = 0.5f;
+		inverseMoveTime = 1f / movingTime;
+
+		log ("came to this world");
 	}
 
 	public void Update () {
@@ -40,6 +46,57 @@ public class UnitController {
 		}
 	}
 
+	public void moveTo(Vector2 target) {
+		state = STATE_MOVING;
+
+		movingTo = new Vector3 (target.x, target.y, 0f);
+
+		unitManager.StartChildCoroutine (SmoothMovement (movingTo));
+
+		log ("Started movement to " + movingTo.x.ToString() + ", " + movingTo.y.ToString());
+	}
+
 	void continueMoving() {
+		float sqrRemainingDistance = (avatar.transform.position - movingTo).sqrMagnitude;
+
+		if (sqrRemainingDistance <= float.Epsilon) {
+			state = STATE_IDLE;
+
+			log ("finished movement");
+		}
+	}
+
+	//Co-routine for moving units from one space to next, takes a parameter end to specify where to move to.
+	protected IEnumerator SmoothMovement (Vector3 end)
+	{
+		//Calculate the remaining distance to move based on the square magnitude of the difference between current position and end parameter. 
+		//Square magnitude is used instead of magnitude because it's computationally cheaper.
+		float sqrRemainingDistance = (avatar.transform.position - end).sqrMagnitude;
+
+		Rigidbody2D rb2D = avatar.GetComponent<Rigidbody2D> ();
+
+		//While that distance is greater than a very small amount (Epsilon, almost zero):
+		while(sqrRemainingDistance > float.Epsilon)
+		{
+			//Find a new position proportionally closer to the end, based on the moveTime
+			Vector3 newPostion = Vector3.MoveTowards(rb2D.position, end, inverseMoveTime * Time.deltaTime);
+
+			//Call MovePosition on attached Rigidbody2D and move it to the calculated position.
+			rb2D.MovePosition (newPostion);
+
+			//Recalculate the remaining distance after moving.
+			sqrRemainingDistance = (avatar.transform.position - end).sqrMagnitude;
+
+			//Return and loop until sqrRemainingDistance is close enough to zero to end the function
+			yield return null;
+		}
+	}
+
+	public void setUnitManager(UnitManager manager) {
+		unitManager = manager;
+	}
+
+	void log (string message) {
+		Debug.Log (name + ' ' + message);
 	}
 }
