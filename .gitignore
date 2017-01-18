@@ -4,5 +4,6 @@ Library/ScriptAssemblies/*
 Library/ShaderCache/*
 Library/ShaderCache.db
 Library/shadercompiler*
+Library/CrashedAssetImports.txt
 obj/Debug/*
 Temp/*
