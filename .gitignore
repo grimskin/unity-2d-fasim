@@ -1,5 +1,7 @@
 Temp/*
 Library/metadata/*
 Library/ScriptAssemblies/*
+Library/ShaderCache/*
+Library/ShaderCache.db
 obj/Debug/*
 Temp/*
