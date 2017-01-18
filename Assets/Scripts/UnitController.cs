@@ -23,8 +23,6 @@ public class UnitController {
 
 	private float inverseMoveTime;
 
-	private UnitManager unitManager;
-
 	public void Start () {
 		// position our guy at the initial location
 		avatar.transform.position = new Vector3 (column, row, 0f);
@@ -51,7 +49,7 @@ public class UnitController {
 
 		movingTo = new Vector3 (target.x, target.y, 0f);
 
-		unitManager.StartChildCoroutine (SmoothMovement (movingTo));
+		GameManager.instance.StartCoroutine (SmoothMovement (movingTo));
 
 		log ("Started movement to " + movingTo.x.ToString() + ", " + movingTo.y.ToString());
 	}
@@ -90,10 +88,6 @@ public class UnitController {
 			//Return and loop until sqrRemainingDistance is close enough to zero to end the function
 			yield return null;
 		}
-	}
-
-	public void setUnitManager(UnitManager manager) {
-		unitManager = manager;
 	}
 
 	void log (string message) {

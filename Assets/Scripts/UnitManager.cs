@@ -15,7 +15,6 @@ public class UnitManager : MonoBehaviour {
 		GameObject unitAvatar = Instantiate (unitTemplate) as GameObject;
 
 		UnitController controller = new UnitController () { column = 2, row = 2, avatar = unitAvatar };
-		controller.setUnitManager (this);
 		controller.Start ();
 		controller.moveTo (new Vector2(4, 4));
 
@@ -27,10 +26,5 @@ public class UnitManager : MonoBehaviour {
 		for (int i = 0; i < units.Count; i++) {
 			units [i].Update ();
 		}
-	}
-
-	public void StartChildCoroutine(IEnumerator coroutineMethod)
-	{
-		StartCoroutine(coroutineMethod);
 	}
 }
