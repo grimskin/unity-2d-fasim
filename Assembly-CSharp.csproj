@@ -50,6 +50,7 @@
      <Compile Include="Assets\Scripts\CameraMan.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\Loader.cs" />
+     <Compile Include="Assets\Scripts\NameGenerator.cs" />
      <Compile Include="Assets\Scripts\UnitController.cs" />
      <Compile Include="Assets\Scripts\UnitManager.cs" />
  <Reference Include="UnityEngine.UI">
