@@ -63,7 +63,7 @@ public class UnitController {
 		log ("Started movement to " + movingTo.x.ToString() + ", " + movingTo.y.ToString());
 	}
 
-	void continueMoving() {
+	protected void continueMoving() {
 		float sqrRemainingDistance = (avatar.transform.position - movingTo).sqrMagnitude;
 
 		if (sqrRemainingDistance <= float.Epsilon) {
@@ -122,7 +122,7 @@ public class UnitController {
 		}
 	}
 
-	protected void stopMovingAnimation()
+	protected void stopMovingAnimation ()
 	{
 		animator.SetBool ("move_right", false);
 		animator.SetBool ("move_left", false);
@@ -130,7 +130,8 @@ public class UnitController {
 		animator.SetBool ("move_down", false);
 	}
 
-	void log (string message) {
+	protected void log (string message)
+	{
 		Debug.Log (name + ' ' + message);
 	}
 }

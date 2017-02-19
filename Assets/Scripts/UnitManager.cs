@@ -6,15 +6,16 @@ public class UnitManager : MonoBehaviour {
 
 	public GameObject unitTemplate;
 
-	public List<UnitController> units;
+	// probably later change this to List<CharacterController>
+	public List<CharacterController> units;
 
 	// Use this for initialization
 	void Start () {
-		units = new List<UnitController> ();
+		units = new List<CharacterController> ();
 
 		GameObject unitAvatar = Instantiate (unitTemplate) as GameObject;
 
-		UnitController controller = new UnitController () { column = 2, row = 2, avatar = unitAvatar };
+		CharacterController controller = new CharacterController () { column = 2, row = 2, avatar = unitAvatar };
 		controller.Start ();
 		controller.moveTo (new Vector2(4, 5));
 

@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\BoardManager.cs" />
      <Compile Include="Assets\Scripts\CameraMan.cs" />
+     <Compile Include="Assets\Scripts\CharacterController.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\Loader.cs" />
      <Compile Include="Assets\Scripts\NameGenerator.cs" />
