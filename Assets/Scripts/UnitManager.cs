@@ -16,7 +16,7 @@ public class UnitManager : MonoBehaviour {
 
 		UnitController controller = new UnitController () { column = 2, row = 2, avatar = unitAvatar };
 		controller.Start ();
-		controller.moveTo (new Vector2(4, 4));
+		controller.moveTo (new Vector2(4, 5));
 
 		units.Add (controller);
 	}

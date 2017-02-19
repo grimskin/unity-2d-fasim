@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class UnitController {
@@ -13,7 +14,11 @@ public class UnitController {
 
 	public string state;
 
+	// here is where prefab copy is stored
 	public GameObject avatar;
+
+	// animator controller
+	private Animator animator;
 
 	public string name;
 
@@ -30,6 +35,8 @@ public class UnitController {
 		if (name == null) {
 			name = NameGenerator.fullName();
 		}
+
+		animator = avatar.GetComponent<Animator>();
 
 		movingTime = 0.5f;
 		inverseMoveTime = 1f / movingTime;
@@ -49,6 +56,8 @@ public class UnitController {
 
 		movingTo = new Vector3 (target.x, target.y, 0f);
 
+		setMovingAnimation (target, avatar.transform.position);
+
 		GameManager.instance.StartCoroutine (SmoothMovement (movingTo));
 
 		log ("Started movement to " + movingTo.x.ToString() + ", " + movingTo.y.ToString());
@@ -59,6 +68,7 @@ public class UnitController {
 
 		if (sqrRemainingDistance <= float.Epsilon) {
 			state = STATE_IDLE;
+			stopMovingAnimation ();
 
 			log ("finished movement");
 		}
@@ -88,6 +98,36 @@ public class UnitController {
 			//Return and loop until sqrRemainingDistance is close enough to zero to end the function
 			yield return null;
 		}
+	}
+
+	protected void setMovingAnimation (Vector2 target, Vector2 source)
+	{
+		stopMovingAnimation ();
+
+		float dx = target.x - source.x;
+		float dy = target.y - source.y;
+
+		if (Math.Abs (dx) >= Math.Abs (dy)) {
+			if (dx > 0.0) {
+				animator.SetBool ("move_right", true);
+			} else {
+				animator.SetBool ("move_left", true);
+			}
+		} else {
+			if (dy > 0.0) {
+				animator.SetBool ("move_up", true);
+			} else {
+				animator.SetBool ("move_down", true);
+			}
+		}
+	}
+
+	protected void stopMovingAnimation()
+	{
+		animator.SetBool ("move_right", false);
+		animator.SetBool ("move_left", false);
+		animator.SetBool ("move_up", false);
+		animator.SetBool ("move_down", false);
 	}
 
 	void log (string message) {
