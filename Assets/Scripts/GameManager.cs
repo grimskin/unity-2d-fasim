@@ -8,9 +8,26 @@ public class GameManager : MonoBehaviour
 {
 	public static GameManager instance = null;
 
-	public BoardManager boardScript;
+	protected BoardManager boardManager;
 
-	public UnitManager unitScript;
+	protected UnitManager unitManager;
+
+	protected QuestManager questManager;
+
+	public BoardManager getBoardMananger()
+	{
+		return boardManager;
+	}
+
+	public QuestManager getQuestManager()
+	{
+		return questManager;
+	}
+
+	public UnitManager getUnitManager()
+	{
+		return unitManager;
+	}
 
 	//Awake is always called before any Start functions
 	void Awake()
@@ -23,21 +40,18 @@ public class GameManager : MonoBehaviour
 
 		DontDestroyOnLoad(gameObject);
 
-		//Get a component reference to the attached BoardManager script
-		boardScript = GetComponent<BoardManager> ();
-		unitScript = GetComponent<UnitManager> ();
+		// have to us GetComponent because these two are MonoBeh descendants
+		boardManager = GetComponent<BoardManager> ();
+		unitManager = GetComponent<UnitManager> ();
+		unitManager.gameManager = this;
+		questManager = new QuestManager ();
 
 		InitGame();
 	}
 
 	void InitGame()
 	{
-		boardScript.SetupScene();
-	}
-
-	//Update is called every frame.
-	void Update()
-	{
-
+		boardManager.SetupScene();
+		unitManager.gameManager = this;
 	}
 }

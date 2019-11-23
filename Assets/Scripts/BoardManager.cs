@@ -6,12 +6,11 @@ public class BoardManager : MonoBehaviour
 {
 	public GameObject[,] tiles;
 
-	public int columns = 10;                                         //Number of columns in our game board.
-	public int rows = 10;                                            //Number of rows in our game board.
+	protected int columns;                                         //Number of columns in our game board.
+	protected int rows;                                            //Number of rows in our game board.
 
-	private Transform boardHolder;                                  //A variable to store a reference to the transform of our Board object.
+	private Transform boardHolder; //A variable to store a reference to the transform of our Board object.
 
-	//Sets up the outer walls and floor (background) of the game board.
 	void BoardSetup ()
 	{
 		//Instantiate Board and set boardHolder to its transform.
@@ -38,9 +37,10 @@ public class BoardManager : MonoBehaviour
 		}
 	}
 		
-	//SetupScene initializes our level and calls the previous functions to lay out the game board
 	public void SetupScene ()
 	{
+		columns = Config.getBoardWidth ();
+		rows = Config.getBoardHeight ();
 		//Creates the outer walls and floor.
 		BoardSetup ();
 	}

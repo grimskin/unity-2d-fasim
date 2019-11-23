@@ -69,8 +69,14 @@ public class UnitController {
 		if (sqrRemainingDistance <= float.Epsilon) {
 			state = STATE_IDLE;
 			stopMovingAnimation ();
+			avatar.transform.position.Set (movingTo.x, movingTo.y, 0f);
 
-			log ("finished movement");
+			log (
+				"finished movement at " 
+				+ avatar.transform.position.x.ToString() 
+				+ ", " 
+				+ avatar.transform.position.y.ToString()
+			);
 		}
 	}
 
