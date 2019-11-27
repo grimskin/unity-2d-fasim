@@ -41,7 +41,7 @@ public class UnitController {
 		movingTime = 0.5f;
 		inverseMoveTime = 1f / movingTime;
 
-		log ("came to this world");
+		log (name + " came to this world");
 	}
 
 	public void Update () {
