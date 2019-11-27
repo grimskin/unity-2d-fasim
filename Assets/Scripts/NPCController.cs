@@ -9,6 +9,7 @@ public class NPCController : UnitController {
 	protected float boredomInc;
 	protected float boredomDec;
 	protected List<IQuest> quests;
+    protected const float EPSILON = 0.01f;
 
 	new public void Start()
 	{
@@ -17,7 +18,7 @@ public class NPCController : UnitController {
 		quests = new List<IQuest> ();
 
 		boredom = 1.0f;
-		boredomInc = 0.1f;
+		boredomInc = 0.03f;
 		boredomDec = 0.4f;
 	}
 
@@ -69,7 +70,8 @@ public class NPCController : UnitController {
 				moveTarget.y += 1f;
 			}
 
-			if ((moveTarget.x != avatar.transform.position.x) || (moveTarget.y != avatar.transform.position.y)) {
+			if ((System.Math.Abs(moveTarget.x - avatar.transform.position.x) > EPSILON)
+                || (System.Math.Abs(moveTarget.y - avatar.transform.position.y) > EPSILON)) {
 				moveTo (moveTarget);
 			}
 		}
