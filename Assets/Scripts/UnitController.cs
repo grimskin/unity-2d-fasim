@@ -51,6 +51,14 @@ public class UnitController {
 		}
 	}
 
+    public void OnMouseDown()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Debug.Log("clicked");
+        }
+    }
+
 	public void moveTo(Vector2 target) {
 		state = STATE_MOVING;
 

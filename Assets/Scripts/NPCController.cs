@@ -28,6 +28,8 @@ public class NPCController : UnitController {
 			return;
 		}
 
+        OnMouseDown();
+
 		doIdle ();
 	}
 
@@ -40,7 +42,7 @@ public class NPCController : UnitController {
 		}
 	}
 
-	protected void doIdle()
+    protected void doIdle()
 	{
 		boredom += boredomInc;
 
