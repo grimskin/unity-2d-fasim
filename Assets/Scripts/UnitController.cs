@@ -41,7 +41,7 @@ public class UnitController {
 		movingTime = 0.5f;
 		inverseMoveTime = 1f / movingTime;
 
-		log (name + " came to this world");
+		log ("came to this world");
 	}
 
 	public void Update () {
@@ -146,6 +146,6 @@ public class UnitController {
 
 	protected void log (string message)
 	{
-		Debug.Log (name + ' ' + message);
+		GameLogger.Log (name + ' ' + message);
 	}
 }
