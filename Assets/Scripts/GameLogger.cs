@@ -11,7 +11,7 @@ public class GameLogger
     {
         Debug.Log(message);
 
-        if (_logText == null)
+        if (ReferenceEquals(_logText, null))
         {
             _logText = GameObject.Find("LogPanel/TextContainer/ScrollableText");
         }
