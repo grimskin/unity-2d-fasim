@@ -6,9 +6,9 @@ public class QuestManager {
 
 	protected GameManager gameManager;
 
-	public List<IQuest> getQuests(List<IBenefit> desiredBenefits)
+	public List<IQuest> GetQuests(List<IBenefit> desiredBenefits)
 	{
-		List<IQuest> result = new List<IQuest> ();
+		var result = new List<IQuest> ();
 
 		return result;
 	}

@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class NpcController : UnitController {
+public class NpcController : UnitController, IHasCharSheet {
 	private float _boredom;
 	private float _boredomInc;
 	private float _boredomDec;
 	private List<IQuest> quests;
 	private const float Epsilon = 0.01f;
+
+	public CharSheet GetCharSheet()
+	{
+		throw new System.NotImplementedException();
+	}
 
 	public new void Start()
 	{

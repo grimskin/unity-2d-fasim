@@ -9,7 +9,7 @@ public class BoredomQuest : BaseQuest {
 		List<IBenefit> desiredBenefits = new List<IBenefit> ();
 		desiredBenefits.Add (new BoredomBenefit ());
 
-		List<IQuest> possibleQuests = gameManager.getQuestManager ().getQuests (desiredBenefits);
+		List<IQuest> possibleQuests = gameManager.getQuestManager ().GetQuests (desiredBenefits);
 
 		bool result = (possibleQuests.Count > 0) ? true : false;
 
