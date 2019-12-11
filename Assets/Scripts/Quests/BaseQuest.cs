@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IQuest 
 {
-	bool isDoable(GameManager gameManager, NPCController character);
+	bool isDoable(GameManager gameManager, NpcController character);
 }
 
 public abstract class BaseQuest: IQuest
@@ -18,5 +18,5 @@ public abstract class BaseQuest: IQuest
 		return repeatable;
 	}
 
-	public abstract bool isDoable(GameManager gameManager, NPCController character);
+	public abstract bool isDoable(GameManager gameManager, NpcController character);
 }

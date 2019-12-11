@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BoredomQuest : BaseQuest {
 
-	override public bool isDoable(GameManager gameManager, NPCController character) 
+	override public bool isDoable(GameManager gameManager, NpcController character) 
 	{
 		List<IBenefit> desiredBenefits = new List<IBenefit> ();
 		desiredBenefits.Add (new BoredomBenefit ());

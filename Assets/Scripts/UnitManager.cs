@@ -9,15 +9,15 @@ public class UnitManager : MonoBehaviour {
 	public GameManager gameManager;
 
 	// probably later change this to List<CharacterController>
-	public List<NPCController> units;
+	public List<NpcController> units;
 
 	// Use this for initialization
 	void Start () {
-		units = new List<NPCController> ();
+		units = new List<NpcController> ();
 
 		GameObject unitAvatar = Instantiate (unitTemplate) as GameObject;
 
-		NPCController controller = new NPCController () { column = 2, row = 2, avatar = unitAvatar };
+		NpcController controller = new NpcController () { column = 2, row = 2, avatar = unitAvatar };
 		controller.Start ();
 		controller.moveTo (new Vector2(4, 5));
 

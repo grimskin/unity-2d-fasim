@@ -3,77 +3,79 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class NPCController : UnitController {
+public class NpcController : UnitController {
+	private float _boredom;
+	private float _boredomInc;
+	private float _boredomDec;
+	private List<IQuest> quests;
+	private const float Epsilon = 0.01f;
 
-	protected float boredom;
-	protected float boredomInc;
-	protected float boredomDec;
-	protected List<IQuest> quests;
-    protected const float EPSILON = 0.01f;
-
-	new public void Start()
+	public new void Start()
 	{
 		base.Start ();
 
 		quests = new List<IQuest> ();
 
-		boredom = 1.0f;
-		boredomInc = 0.03f;
-		boredomDec = 0.4f;
+		_boredom = 1.0f;
+		_boredomInc = 0.03f;
+		_boredomDec = 0.4f;
 	}
 
-	new public void Update () {
+	public new void Update () {
 		if (state == STATE_MOVING) {
 			continueMoving ();
-			cheerUp ();
+			CheerUp ();
 			return;
 		}
 
         OnMouseDown();
 
-		doIdle ();
+		DoIdle ();
 	}
 
-	protected void cheerUp()
+	private void CheerUp()
 	{
-		boredom -= boredomDec;
+		_boredom -= _boredomDec;
 
-		if (boredom < 0f) {
-			boredom = 0f;
+		if (_boredom < 0f) {
+			_boredom = 0f;
 		}
 	}
 
-    protected void doIdle()
+    private void DoIdle()
 	{
-		boredom += boredomInc;
+		_boredom += _boredomInc;
 
 		float randomMove = Random.Range (3, 6);
 
-		if (boredom > randomMove) {
-			log ("Bored up to " + boredom.ToString() + " and decided to walk");
+		if (!(_boredom > randomMove)) return;
+		
+		log ("Bored up to " + _boredom + " and decided to walk");
 
-			Vector2 moveTarget = new Vector2 ();
-			moveTarget.x = avatar.transform.position.x;
-			moveTarget.y = avatar.transform.position.y;
+		var position = avatar.transform.position;
+		var moveTarget = new Vector2
+		{
+			x = position.x, 
+			y = position.y
+		};
 
-			float randX = Random.Range (0, 4);
-			if (randX < 1) {
-				moveTarget.x -= 1f;
-			} else if (randX > 2) {
-				moveTarget.x += 1f;
-			}
+		float randX = Random.Range (0, 4);
+		if (randX < 1) {
+			moveTarget.x -= 1f;
+		} else if (randX > 2) {
+			moveTarget.x += 1f;
+		}
 
-			float randY = Random.Range (0, 4);
-			if (randY < 1) {
-				moveTarget.y -= 1f;
-			} else if (randX > 2) {
-				moveTarget.y += 1f;
-			}
+		float randY = Random.Range (0, 4);
+		if (randY < 1) {
+			moveTarget.y -= 1f;
+		} else if (randX > 2) {
+			moveTarget.y += 1f;
+		}
 
-			if ((System.Math.Abs(moveTarget.x - avatar.transform.position.x) > EPSILON)
-                || (System.Math.Abs(moveTarget.y - avatar.transform.position.y) > EPSILON)) {
-				moveTo (moveTarget);
-			}
+		if ((System.Math.Abs(moveTarget.x - avatar.transform.position.x) > Epsilon)
+		    || (System.Math.Abs(moveTarget.y - avatar.transform.position.y) > Epsilon)) {
+			moveTo (moveTarget);
 		}
 	}
 }
