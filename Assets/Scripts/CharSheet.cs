@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class CharSheet
 {
+    private int _strength;
+    private int _dexterity;
+    private int _constitution;
+    private int _intelligence;
+    private int _wisdom;
+    private int _charisma;
+
+    private int _boredom;
+    private int _hunger;
+    
     private int _acrobatics; // (Dex)
     private int _animalHandling; // ( Wis)
     private int _arcana; // (Int)
@@ -22,4 +32,16 @@ public class CharSheet
     private int _sleightOfHand; // (Dex)
     private int _stealth; // (Dex)
     private int _survival; // ( Wis)
+
+    public int Boredom
+    {
+        get => _boredom;
+        set => _boredom = value;
+    }
+
+    public int Hunger
+    {
+        get => _hunger;
+        set => _hunger = value;
+    }
 }

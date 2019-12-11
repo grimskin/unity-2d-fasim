@@ -7,19 +7,19 @@ public class NpcController : UnitController, IHasCharSheet {
 	private float _boredom;
 	private float _boredomInc;
 	private float _boredomDec;
+	private CharSheet _charSheet;
 	private List<IQuest> quests;
 	private const float Epsilon = 0.01f;
 
-	public CharSheet GetCharSheet()
-	{
-		throw new System.NotImplementedException();
-	}
+	public CharSheet GetCharSheet() => _charSheet;
 
 	public new void Start()
 	{
 		base.Start ();
 
 		quests = new List<IQuest> ();
+		// @todo add generator
+		_charSheet = new CharSheet();
 
 		_boredom = 1.0f;
 		_boredomInc = 0.03f;
