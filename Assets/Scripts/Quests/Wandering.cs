@@ -5,11 +5,11 @@ namespace Quests
 {
     public class Wandering: BaseQuest
     {
-        public override List<IProperty> GetBenefits()
+        public override Dictionary<string, int> GetCharacterEffects ()
         {
-            return new List<IProperty>
+            return new Dictionary<string, int>
             {
-                PropFactory.GetPropByName("Boredom")
+                {"Boredom", 1}
             };
         }
     }
