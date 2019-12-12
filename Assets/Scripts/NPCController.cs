@@ -8,7 +8,6 @@ public class NpcController : UnitController, IHasCharSheet {
 	private float _boredomInc;
 	private float _boredomDec;
 	private CharSheet _charSheet;
-	private List<IQuest> quests;
 	private const float Epsilon = 0.01f;
 
 	public CharSheet GetCharSheet() => _charSheet;
@@ -17,7 +16,6 @@ public class NpcController : UnitController, IHasCharSheet {
 	{
 		base.Start ();
 
-		quests = new List<IQuest> ();
 		// @todo add generator
 		_charSheet = new CharSheet();
 

@@ -1,15 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
+using Quests;
 
 public class QuestManager {
 
 	protected GameManager gameManager;
 
-	public List<IQuest> GetQuests(List<IBenefit> desiredBenefits)
+	private List<IQuest> _baseQuests;
+	
+	private void _loadBaseQuests()
 	{
-		var result = new List<IQuest> ();
-
-		return result;
+		if (!ReferenceEquals(_baseQuests, null)) return;
+		
+		_baseQuests = new List<IQuest>
+		{
+			new Idling(),
+			new Wandering()
+		};
 	}
 }
