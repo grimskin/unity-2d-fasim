@@ -11,5 +11,10 @@ namespace Character.Properties
         {
             return "Boredom";
         }
+
+        public override bool IsInverted()
+        {
+            return true;
+        }
     }
 }

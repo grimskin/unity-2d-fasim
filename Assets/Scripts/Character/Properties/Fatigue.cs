@@ -11,5 +11,10 @@ namespace Character.Properties
         {
             return "Fatigue";
         }
+
+        public override bool IsInverted()
+        {
+            return true;
+        }
     }
 }
