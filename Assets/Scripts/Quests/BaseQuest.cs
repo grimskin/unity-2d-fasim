@@ -1,3 +1,4 @@
+using System;
 using Character.Properties;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,9 @@ namespace Quests
             return (
                 from effect 
                     in GetCharacterEffects() 
-                where effect.Value > 0 
-                select PropFactory.GetPropByName(effect.Key)
+                where (!effect.IsInverted() && effect.GetValue() > 0) 
+                      || (effect.IsInverted() && effect.GetValue() < 0)
+                select effect
                 ).ToList();
         }
 
@@ -21,11 +23,22 @@ namespace Quests
             return (
                 from effect 
                     in GetCharacterEffects() 
-                where effect.Value < 0 
-                select PropFactory.GetPropByName(effect.Key)
+                where (!effect.IsInverted() && effect.GetValue() < 0) 
+                      || (effect.IsInverted() && effect.GetValue() > 0)
+                select effect
                 ).ToList();
         }
 
-        public abstract Dictionary<string, int> GetCharacterEffects();
+        public abstract List<IProperty> GetCharacterEffects();
+
+        public int GetBenefitForNeedAbs(IProperty need)
+        {
+            return (
+                from effect
+                    in GetCharacterBenefits()
+                where effect.GetName() == need.GetName()
+                select Math.Abs(effect.GetValue())
+                ).DefaultIfEmpty(0).First();
+        }
     }
 }

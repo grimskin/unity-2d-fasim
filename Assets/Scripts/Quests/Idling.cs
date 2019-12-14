@@ -3,21 +3,14 @@ using Character.Properties;
 
 namespace Quests
 {
-    public class Idling: BaseQuest
+    public class Idling : BaseQuest
     {
-        public override Dictionary<string, int> GetCharacterEffects ()
-        {
-            return new Dictionary<string, int>
-            {
-                {"Fatigue", 2}
-            };
-        }
-
-        public List<IProperty> GetBenefits()
+        public override List<IProperty> GetCharacterEffects()
         {
             return new List<IProperty>
             {
-                PropFactory.GetPropByName("Fatigue")
+                new Fatigue { Value = -5 },
+                new Boredom { Value = 1 }
             };
         }
     }

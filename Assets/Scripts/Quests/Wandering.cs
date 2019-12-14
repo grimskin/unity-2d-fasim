@@ -5,11 +5,12 @@ namespace Quests
 {
     public class Wandering: BaseQuest
     {
-        public override Dictionary<string, int> GetCharacterEffects ()
+        public override List<IProperty> GetCharacterEffects ()
         {
-            return new Dictionary<string, int>
+            return new List<IProperty>
             {
-                {"Boredom", 1}
+                new Boredom { Value = -5 },
+                new Fatigue { Value = 2 }
             };
         }
     }

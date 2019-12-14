@@ -8,6 +8,8 @@ namespace Quests
         List<IProperty> GetCharacterBenefits();
         List<IProperty> GetCharacterDrawbacks();
 
-        Dictionary<string, int> GetCharacterEffects();
+        List<IProperty> GetCharacterEffects();
+
+        int GetBenefitForNeedAbs(IProperty need);
     }
 }

@@ -52,7 +52,13 @@ public class NpcController : UnitController, IHasCharSheet {
 
     private void DoIdle()
     {
-	    GameLogger.Log("Biggest need is " + _decisionMaker.GetBiggestNeed().GetName());
+	    var biggestNeed = _decisionMaker.GetBiggestNeed();
+	    GameLogger.Log(
+		    "Biggest need is "
+		    + biggestNeed.GetName()
+			+ " Solution - do "
+		    + _decisionMaker.PickAQuest(biggestNeed).GetType().Name
+		    );
 		
 		_boredom += _boredomInc;
 

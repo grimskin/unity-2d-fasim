@@ -5,6 +5,18 @@ using Quests;
 
 namespace Character
 {
+    class QuestComparer: IComparer<IQuest>
+    {
+        public IProperty Need { get; set; }
+
+        public int Compare(IQuest x, IQuest y)
+        {
+            if (x == null || y == null) return 0;
+
+            return x.GetBenefitForNeedAbs(Need) > y.GetBenefitForNeedAbs(Need) ? 1 : -1;
+        }
+    }
+
     public class DecisionMaker
     {
         private CharSheet _charSheet;
@@ -18,9 +30,12 @@ namespace Character
             _questManager = questManager;
         }
 
-        public IQuest PickAQuest()
+        public IQuest PickAQuest(IProperty need)
         {
-            return null;
+            var quests = _questManager.GetQuestsForNeed(need);
+            var sorter = new QuestComparer() { Need = need };
+            quests.Sort(sorter);
+            return quests.First();
         }
 
         public IProperty GetBiggestNeed()
