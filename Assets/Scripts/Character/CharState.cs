@@ -1,27 +1,34 @@
+using Character.Properties;
+
 namespace Character
 {
     public class CharState
     {
-        private int _boredom;
         private int _hunger;
-        private int _fatigue;
 
-        public int Boredom
+        public CharState()
         {
-            get => _boredom;
-            set => _boredom = value;
+            Boredom = new Boredom();
+            Fatigue = new Fatigue();
+        }
+
+        public Boredom Boredom { get; }
+        public Fatigue Fatigue { get; }
+
+        public void SetBoredom(int value)
+        {
+            Boredom.Value = value;
+        }
+
+        public void SetFatigue(int value)
+        {
+            Fatigue.Value = value;
         }
 
         public int Hunger
         {
             get => _hunger;
             set => _hunger = value;
-        }
-
-        public int Fatigue
-        {
-            get => _fatigue;
-            set => _fatigue = value;
         }
     }
 }

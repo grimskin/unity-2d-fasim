@@ -13,6 +13,11 @@ namespace Character.Properties
             return Value;
         }
 
+        public int GetNormalizedValue()
+        {
+            return IsInverted() ? (100 - Value) : Value;
+        }
+
         public int Value { get; set; }
     }
 }

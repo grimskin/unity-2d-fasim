@@ -8,6 +8,8 @@ namespace Character.Properties
 
         int GetValue();
 
+        int GetNormalizedValue();
+
         /**
          * Inverted means that big value equals to big need, like, for example, with hunger
          */

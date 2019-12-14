@@ -5,7 +5,7 @@ namespace Character
 {
     public class CharStateManager
     {
-        private CharState _stateSheet;
+        private readonly CharState _stateSheet;
         
         public CharStateManager(CharState stateSheet)
         {
@@ -14,7 +14,11 @@ namespace Character
 
         public List<IProperty> GetNeeds()
         {
-            return new List<IProperty>();
+            return new List<IProperty>
+            {
+                _stateSheet.Boredom,
+                _stateSheet.Fatigue
+            };
         }
     }
 }

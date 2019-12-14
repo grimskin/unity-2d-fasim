@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Character;
 using UnityEngine;
 
 public class UnitManager : MonoBehaviour {
@@ -15,9 +16,21 @@ public class UnitManager : MonoBehaviour {
 	void Start () {
 		units = new List<NpcController> ();
 
-		GameObject unitAvatar = Instantiate (unitTemplate) as GameObject;
+		var unitAvatar = Instantiate (unitTemplate);
 
-		NpcController controller = new NpcController () { column = 2, row = 2, avatar = unitAvatar };
+		var charState = new CharState();
+		charState.SetBoredom(30);
+		charState.SetFatigue(20);
+		
+		NpcController controller = new NpcController ()
+		{
+			column = 2, 
+			row = 2,
+			charSheet = new CharSheet(),
+			charState = charState,
+			questManager = new QuestManager(),
+			avatar = unitAvatar
+		};
 		controller.Start ();
 		controller.moveTo (new Vector2(4, 5));
 

@@ -7,17 +7,22 @@ public class NpcController : UnitController, IHasCharSheet {
 	private float _boredom;
 	private float _boredomInc;
 	private float _boredomDec;
-	private CharSheet _charSheet;
+	public CharState charState;
+	public CharSheet charSheet;
+	public QuestManager questManager;
+	private DecisionMaker _decisionMaker;
 	private const float Epsilon = 0.01f;
 
-	public CharSheet GetCharSheet() => _charSheet;
+	public CharSheet GetCharSheet()
+	{
+		return charSheet;
+	}
 
 	public new void Start()
 	{
 		base.Start ();
 
-		// @todo add generator
-		_charSheet = new CharSheet();
+		_decisionMaker = new DecisionMaker(charSheet, new CharStateManager(charState), questManager);
 
 		_boredom = 1.0f;
 		_boredomInc = 0.03f;
@@ -46,7 +51,9 @@ public class NpcController : UnitController, IHasCharSheet {
 	}
 
     private void DoIdle()
-	{
+    {
+	    GameLogger.Log("Biggest need is " + _decisionMaker.GetBiggestNeed().GetName());
+		
 		_boredom += _boredomInc;
 
 		float randomMove = Random.Range (3, 6);
