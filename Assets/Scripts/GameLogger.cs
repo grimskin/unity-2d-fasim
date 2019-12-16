@@ -3,9 +3,10 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameLogger
+public static class GameLogger
 {
     private static GameObject _logText;
+    private static Text _textArea;
     
     public static void Log(object message)
     {
@@ -14,7 +15,8 @@ public class GameLogger
         if (ReferenceEquals(_logText, null))
         {
             _logText = GameObject.Find("LogPanel/TextContainer/ScrollableText");
+            _textArea = _logText.GetComponent<Text>();
         }
-        _logText.GetComponent<Text>().text = message + "\n" + _logText.GetComponent<Text>().text;
+        _textArea.text = message + "\n" + _textArea.text;
     }
 }
