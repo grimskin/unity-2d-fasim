@@ -2,6 +2,8 @@ using System;
 using Character.Properties;
 using System.Collections.Generic;
 using System.Linq;
+using Character;
+using Character.Commands;
 
 namespace Quests
 {
@@ -30,6 +32,12 @@ namespace Quests
         }
 
         public abstract List<IProperty> GetCharacterEffects();
+
+        public abstract ICommand GetCommand(IControlledCharacter character);
+
+        public abstract bool IsCompleted();
+
+        public abstract void Finalize(IControlledCharacter character);
 
         public int GetBenefitForNeedAbs(IProperty need)
         {
