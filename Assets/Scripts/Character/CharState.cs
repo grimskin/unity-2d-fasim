@@ -4,6 +4,9 @@ namespace Character
 {
     public class CharState
     {
+        public const string StateIdle = "STATE_IDLE";
+        public const string StateMoving = "STATE_MOVING";
+        
         private int _hunger;
 
         public CharState()
