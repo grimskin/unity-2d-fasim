@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Character.Properties;
@@ -35,7 +36,7 @@ namespace Character
             var quests = _questManager.GetQuestsForNeed(need);
             var sorter = new QuestComparer() { Need = need };
             quests.Sort(sorter);
-            return quests.First();
+            return Activator.CreateInstance(quests.First().GetType()) as IQuest;
         }
 
         public IProperty GetBiggestNeed()
