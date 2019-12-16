@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using Character;
+using Character.Commands;
+using Quests;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class NpcController : UnitController, IHasCharSheet {
+public class NpcController : UnitController, IHasCharSheet, IControlledCharacter {
 	private float _boredom;
 	private float _boredomInc;
 	private float _boredomDec;
@@ -13,6 +15,9 @@ public class NpcController : UnitController, IHasCharSheet {
 	private DecisionMaker _decisionMaker;
 	private const float Epsilon = 0.01f;
 
+	private IQuest _currentQuest;
+	private ICommand _currentCommand;
+	
 	public CharSheet GetCharSheet()
 	{
 		return charSheet;
@@ -29,6 +34,21 @@ public class NpcController : UnitController, IHasCharSheet {
 		_boredomDec = 0.4f;
 	}
 
+	public string GetState()
+	{
+		throw new System.NotImplementedException();
+	}
+
+	public void SetState(string newState)
+	{
+		throw new System.NotImplementedException();
+	}
+
+	public Vector2 GetPosition()
+	{
+		throw new System.NotImplementedException();
+	}
+
 	public new void Update () {
 		if (state == STATE_MOVING) {
 			continueMoving ();
@@ -36,9 +56,38 @@ public class NpcController : UnitController, IHasCharSheet {
 			return;
 		}
 
+		if (_currentQuest == null)
+		{
+			PickAQuest();
+		}
+
+		if (_currentCommand == null)
+		{
+			_currentCommand = _currentQuest.GetCommand(this);
+		}
+		
+		_currentCommand.invokeOn(this);
+
+		if (_currentCommand.IsCompleted())
+		{
+			_currentCommand = null;
+
+			if (_currentQuest.IsCompleted())
+			{
+				_currentQuest.Finalize(this);
+				_currentQuest = null;
+			}
+		}
+		
         OnMouseDown();
 
 		DoIdle ();
+	}
+
+	private void PickAQuest()
+	{
+		_currentQuest = _decisionMaker.PickAQuest(_decisionMaker.GetBiggestNeed());
+		GameLogger.Log(name + " picked a quest for " + _currentQuest.GetType().Name);
 	}
 
 	private void CheerUp()
@@ -52,15 +101,7 @@ public class NpcController : UnitController, IHasCharSheet {
 
     private void DoIdle()
     {
-	    var biggestNeed = _decisionMaker.GetBiggestNeed();
-	    GameLogger.Log(
-		    "Biggest need is "
-		    + biggestNeed.GetName()
-			+ " Solution - do "
-		    + _decisionMaker.PickAQuest(biggestNeed).GetType().Name
-		    );
-		
-		_boredom += _boredomInc;
+	    _boredom += _boredomInc;
 
 		float randomMove = Random.Range (3, 6);
 
