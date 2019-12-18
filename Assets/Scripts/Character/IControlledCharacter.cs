@@ -9,6 +9,8 @@ namespace Character
 
         void MoveTo(Vector2 moveTarget);
 
+        void ContinueMovement();
+
         CharStateManager GetCharStateManager();
         
         Vector2 GetPosition();

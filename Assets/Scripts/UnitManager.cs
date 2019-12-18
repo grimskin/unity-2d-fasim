@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Character;
 using UnityEngine;
 
@@ -32,7 +31,6 @@ public class UnitManager : MonoBehaviour {
 			avatar = unitAvatar
 		};
 		controller.Start ();
-		controller.MoveTo (new Vector2(4, 5));
 
 		units.Add (controller);
 	}

@@ -1,13 +1,9 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using System;
 using Character;
 using UnityEngine;
 
 public class UnitController {
-
-	public const string STATE_IDLE = "STATE_IDLE";
-	public const string STATE_MOVING = "STATE_MOVING";
 
 	public int column;
 
@@ -32,7 +28,7 @@ public class UnitController {
 	public void Start () {
 		// position our guy at the initial location
 		avatar.transform.position = new Vector3 (column, row, 0f);
-		state = STATE_IDLE;
+		state = CharState.StateIdle;
 		if (name == null) {
 			name = NameGenerator.fullName();
 		}
@@ -43,13 +39,6 @@ public class UnitController {
 		inverseMoveTime = 1f / movingTime;
 
 		log ("came to this world");
-	}
-
-	public void Update () {
-		if (state == CharState.StateMoving) {
-			continueMoving ();
-			return;
-		}
 	}
 
     public void OnMouseDown()
@@ -65,19 +54,19 @@ public class UnitController {
 
 		movingTo = new Vector3 (target.x, target.y, 0f);
 
-		setMovingAnimation (target, avatar.transform.position);
+		SetMovingAnimation (target, avatar.transform.position);
 
 		GameManager.instance.StartCoroutine (SmoothMovement (movingTo));
 
 		log ("Started movement to " + movingTo.x.ToString() + ", " + movingTo.y.ToString());
 	}
 
-	protected void continueMoving() {
-		float sqrRemainingDistance = (avatar.transform.position - movingTo).sqrMagnitude;
+	public void ContinueMovement() {
+		var sqrRemainingDistance = (avatar.transform.position - movingTo).sqrMagnitude;
 
 		if (sqrRemainingDistance <= float.Epsilon) {
-			state = STATE_IDLE;
-			stopMovingAnimation ();
+			state = CharState.StateIdle;
+			StopMovingAnimation ();
 			avatar.transform.position.Set (movingTo.x, movingTo.y, 0f);
 
 			log (
@@ -90,7 +79,7 @@ public class UnitController {
 	}
 
 	//Co-routine for moving units from one space to next, takes a parameter end to specify where to move to.
-	protected IEnumerator SmoothMovement (Vector3 end)
+	private IEnumerator SmoothMovement (Vector3 end)
 	{
 		//Calculate the remaining distance to move based on the square magnitude of the difference between current position and end parameter. 
 		//Square magnitude is used instead of magnitude because it's computationally cheaper.
@@ -115,9 +104,9 @@ public class UnitController {
 		}
 	}
 
-	protected void setMovingAnimation (Vector2 target, Vector2 source)
+	private void SetMovingAnimation (Vector2 target, Vector2 source)
 	{
-		stopMovingAnimation ();
+		StopMovingAnimation ();
 
 		float dx = target.x - source.x;
 		float dy = target.y - source.y;
@@ -137,7 +126,7 @@ public class UnitController {
 		}
 	}
 
-	protected void stopMovingAnimation ()
+	private void StopMovingAnimation ()
 	{
 		animator.SetBool ("move_right", false);
 		animator.SetBool ("move_left", false);
