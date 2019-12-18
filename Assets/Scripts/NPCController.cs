@@ -12,6 +12,7 @@ public class NpcController : UnitController, IHasCharSheet, IControlledCharacter
 	public CharState charState;
 	public CharSheet charSheet;
 	public QuestManager questManager;
+	private CharStateManager _charStateManager;
 	private DecisionMaker _decisionMaker;
 	private const float Epsilon = 0.01f;
 
@@ -27,7 +28,8 @@ public class NpcController : UnitController, IHasCharSheet, IControlledCharacter
 	{
 		base.Start ();
 
-		_decisionMaker = new DecisionMaker(charSheet, new CharStateManager(charState), questManager);
+		_charStateManager = new CharStateManager(charState);
+		_decisionMaker = new DecisionMaker(charSheet, _charStateManager, questManager);
 
 		_boredom = 1.0f;
 		_boredomInc = 0.03f;
@@ -36,17 +38,17 @@ public class NpcController : UnitController, IHasCharSheet, IControlledCharacter
 
 	public string GetState()
 	{
-		throw new System.NotImplementedException();
+		return state;
 	}
 
 	public void SetState(string newState)
 	{
-		throw new System.NotImplementedException();
+		state = newState;
 	}
 
 	public Vector2 GetPosition()
 	{
-		throw new System.NotImplementedException();
+		return avatar.transform.position;
 	}
 
 	public new void Update () {
@@ -75,6 +77,7 @@ public class NpcController : UnitController, IHasCharSheet, IControlledCharacter
 			if (_currentQuest.IsCompleted())
 			{
 				_currentQuest.Finalize(this);
+				GameLogger.Log(name + " finished quest for " + _currentQuest.GetType().Name);
 				_currentQuest = null;
 			}
 		}
@@ -87,7 +90,8 @@ public class NpcController : UnitController, IHasCharSheet, IControlledCharacter
 	private void PickAQuest()
 	{
 		_currentQuest = _decisionMaker.PickAQuest(_decisionMaker.GetBiggestNeed());
-		GameLogger.Log(name + " picked a quest for " + _currentQuest.GetType().Name);
+		GameLogger.Log(name + " picked a quest for " + _currentQuest.GetType().Name
+		               + " with need of " + _currentQuest.GetBenefitForNeedAbs(_decisionMaker.GetBiggestNeed()));
 	}
 
 	private void CheerUp()
@@ -132,7 +136,12 @@ public class NpcController : UnitController, IHasCharSheet, IControlledCharacter
 
 		if ((System.Math.Abs(moveTarget.x - avatar.transform.position.x) > Epsilon)
 		    || (System.Math.Abs(moveTarget.y - avatar.transform.position.y) > Epsilon)) {
-			moveTo (moveTarget);
+			MoveTo (moveTarget);
 		}
 	}
+
+    public CharStateManager GetCharStateManager()
+    {
+	    return _charStateManager;
+    }
 }

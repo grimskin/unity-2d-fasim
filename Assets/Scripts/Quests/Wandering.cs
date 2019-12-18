@@ -8,14 +8,16 @@ namespace Quests
 {
     public class Wandering: BaseQuest
     {
-        private bool _isCompleted = false;
+        private bool _isCompleted;
+        private const int BoredomEffect = -5;
+        private const int FatigueEffect = 2;
         
         public override List<IProperty> GetCharacterEffects ()
         {
             return new List<IProperty>
             {
-                new Boredom { Value = -5 },
-                new Fatigue { Value = 2 }
+                new Boredom { Value = BoredomEffect },
+                new Fatigue { Value = FatigueEffect }
             };
         }
 
@@ -26,26 +28,20 @@ namespace Quests
 
         public override void Finalize(IControlledCharacter character)
         {
-            throw new System.NotImplementedException();
+            var manager = character.GetCharStateManager();
+            manager.ChangeProperty(new Boredom { Value = BoredomEffect });
+            manager.ChangeProperty(new Fatigue { Value = FatigueEffect });
         }
 
         public override ICommand GetCommand(IControlledCharacter character)
         {
             var moveTarget = new Vector2();
 
-            float randX = Random.Range (0, 4);
-            if (randX < 1) {
-                moveTarget.x = 1f;
-            } else if (randX > 2) {
-                moveTarget.x = 1f;
-            }
+            float randX = Random.Range (0, 3);
+            moveTarget.x = randX < 2 ? 1f : -1f;
 
-            float randY = Random.Range (0, 4);
-            if (randY < 1) {
-                moveTarget.y = 1f;
-            } else if (randX > 2) {
-                moveTarget.y = 1f;
-            }
+            float randY = Random.Range (0, 3);
+            moveTarget.y = randY < 2 ? 1f : -1f;
 
             var result = new MoveOneCell();
             result.SetDirection(moveTarget);

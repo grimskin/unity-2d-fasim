@@ -14,7 +14,10 @@ namespace Character
         {
             if (x == null || y == null) return 0;
 
-            return x.GetBenefitForNeedAbs(Need) > y.GetBenefitForNeedAbs(Need) ? 1 : -1;
+            var benefitX = x.GetBenefitForNeedAbs(Need);
+            var benefitY = y.GetBenefitForNeedAbs(Need);
+            
+            return benefitX > benefitY ? 1 : benefitX < benefitY ? -1 : 0;
         }
     }
 

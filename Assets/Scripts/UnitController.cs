@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System;
+using Character;
 using UnityEngine;
 
 public class UnitController {
@@ -45,7 +46,7 @@ public class UnitController {
 	}
 
 	public void Update () {
-		if (state == STATE_MOVING) {
+		if (state == CharState.StateMoving) {
 			continueMoving ();
 			return;
 		}
@@ -59,8 +60,8 @@ public class UnitController {
         }
     }
 
-	public void moveTo(Vector2 target) {
-		state = STATE_MOVING;
+	public void MoveTo(Vector2 target) {
+		state = CharState.StateMoving;
 
 		movingTo = new Vector3 (target.x, target.y, 0f);
 

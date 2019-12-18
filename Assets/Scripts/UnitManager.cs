@@ -32,7 +32,7 @@ public class UnitManager : MonoBehaviour {
 			avatar = unitAvatar
 		};
 		controller.Start ();
-		controller.moveTo (new Vector2(4, 5));
+		controller.MoveTo (new Vector2(4, 5));
 
 		units.Add (controller);
 	}
